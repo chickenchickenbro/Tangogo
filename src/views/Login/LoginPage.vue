@@ -103,7 +103,7 @@ const handleSignUp = async () => {
   await handleLogin()
 }
 
-// login with Google
+// login with google
 const provider = new GoogleAuthProvider()
 const loginByGoogle = async () => {
   isLoading.value = true
