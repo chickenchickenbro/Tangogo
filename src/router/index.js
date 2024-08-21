@@ -35,7 +35,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   const userStore = useUserStore()
   if (!userStore.token && to.path !== '/login') {
-    ElMessage.error('Invalid indentity. Please log in again')
+    // ElMessage.error('Invalid indentity. Please log in again')
     return '/login'
   }
 })

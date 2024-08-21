@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import router from '@/router'
 import { useUserStore } from '@/stores'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
@@ -30,14 +29,3 @@ onAuthStateChanged(auth, (user) => {
     userStore.setUserInfo({})
   }
 })
-
-// Verify online or not
-export const userStateMonitor = async () => {
-  const userStore = useUserStore()
-  if (!auth.currentUser) {
-    userStore.removeToken()
-    userStore.setUserInfo({})
-    router.push('/login')
-    throw new Error('Invalid indentity. Please log in again')
-  }
-}

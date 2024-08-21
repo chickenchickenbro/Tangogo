@@ -1,4 +1,4 @@
-import { db, userStateMonitor } from '@/utils/firebase'
+import { db } from '@/utils/firebase'
 import { ElMessage } from 'element-plus'
 import {
   addDoc,
@@ -17,7 +17,6 @@ import {
 // word list
 export const wordAddFolderService = async (uId, data) => {
   try {
-    await userStateMonitor()
     await addDoc(collection(db, 'users', uId, 'wordfolders'), data)
   } catch (error) {
     ElMessage.error(`${error.message}`)
@@ -46,7 +45,6 @@ export const wordGetFolderService = async (uId) => {
 }
 export const wordEditFolderService = async (uId, data) => {
   try {
-    await userStateMonitor()
     await updateDoc(doc(db, 'users', uId, 'wordfolders', data.id), data)
   } catch (error) {
     ElMessage.error(`${error.message}`)
@@ -55,7 +53,6 @@ export const wordEditFolderService = async (uId, data) => {
 }
 export const wordDeleteFolderService = async (uId, folderId) => {
   try {
-    await userStateMonitor()
     await deleteDoc(doc(db, 'users', uId, 'wordfolders', folderId))
   } catch (error) {
     ElMessage.error(`${error.message}`)
