@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { GoogleAuthProvider, signInWithRedirect } from 'firebase/auth'
 import { auth } from '@/utils/firebase'
 import router from '@/router'
 import { useUserStore } from '@/stores'
@@ -107,7 +107,11 @@ const handleSignUp = async () => {
 const provider = new GoogleAuthProvider()
 const loginByGoogle = async () => {
   isLoading.value = true
-  const res = await signInWithPopup(auth, provider)
+  const res = await signInWithRedirect(auth, provider).cath((error) => {
+    console.log(error)
+  })
+  console.log(123)
+
   const credential = GoogleAuthProvider.credentialFromResult(res)
   const token = await credential.accessToken
   const {
