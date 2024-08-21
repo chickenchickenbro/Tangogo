@@ -133,12 +133,15 @@ const Mastered = () => {
     <el-main>
       <div class="test-content">
         <h1 class="word">{{ testList[index].word }}</h1>
-        <span class="pronunciation">[{{ testList[index].pronunciation }}]</span>
-
-        <p class="example">{{ testList[index].example }}</p>
+        <span class="pronunciation">{{
+          testList[index].pronunciation
+            ? `[${testList[index].pronunciation}]`
+            : null
+        }}</span>
         <p class="paraphrase" v-show="!isChecked">
           {{ testList[index].paraphrase }}
         </p>
+        <p class="example" v-show="!isChecked">{{ testList[index].example }}</p>
       </div>
       <div class="test-button" v-if="isChecked">
         <el-button size="large" plain @click="recordScore(-1.5)"
@@ -179,7 +182,7 @@ const Mastered = () => {
   .el-main {
     margin: 16px 0px 0px;
     .test-content {
-      min-height: 220px;
+      min-height: 160px;
       display: flex;
       flex-direction: column;
       align-items: center;

@@ -73,7 +73,7 @@ defineExpose({
     <template #footer>
       <div class="dialog-footer">
         <el-button plain @click="isVisible = false">Cancle</el-button>
-        <el-button type="primary" @click="handleAddFolder"> Comform </el-button>
+        <el-button type="primary" @click="handleAddFolder"> Comfirm </el-button>
       </div>
     </template>
   </el-dialog>

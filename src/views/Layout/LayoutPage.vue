@@ -235,11 +235,9 @@ const openResetPassword = () => {
         >
           <template #reference>
             <div class="user-profile">
-              <strong class="nickname"
-                >Hi、{{
-                  userStore.userInfo.displayName || userStore.userInfo.email
-                }}</strong
-              >
+              <strong class="nickname">{{
+                userStore.userInfo.displayName || userStore.userInfo.email
+              }}</strong>
               <el-avatar :src="userStore.userInfo.photoURL || avatar" />
             </div>
           </template>

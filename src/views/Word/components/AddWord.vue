@@ -20,8 +20,7 @@ const open = () => {
 // Form data
 const wordForm = ref([])
 const rules = ref({
-  word: [{ required: true, message: '请输入名称', trigger: 'blur' }],
-  paraphrase: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+  word: [{ required: true, message: 'please enter a word', trigger: 'blur' }]
 })
 
 // Add/Delete a word
