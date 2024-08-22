@@ -1,6 +1,6 @@
 <script setup>
 import { Plus, Close } from '@element-plus/icons-vue'
-import { ref, watch, onBeforeUpdate } from 'vue'
+import { ref, watch, onBeforeUpdate, nextTick, onUpdated } from 'vue'
 import { wordAddWordService } from '@/api/word'
 import { useUserStore, useWordStore } from '@/stores'
 import { dictionaryGetWordService } from '@/api/dictionary'
@@ -131,6 +131,21 @@ onBeforeUpdate(() => {
   searchRef.value.resetInputValue()
 })
 
+// automatically focus search input & tour guide
+const addButtonRef = ref()
+const isTour = ref(false)
+onUpdated(() => {
+  nextTick(() => {
+    searchRef.value.focusInput()
+    setTimeout(() => {
+      if (!localStorage.getItem('isTour')) {
+        isTour.value = true
+      }
+      localStorage.setItem('isTour', 'true')
+    }, 250)
+  })
+})
+
 defineExpose({
   open
 })
@@ -239,10 +254,25 @@ defineExpose({
       class="add-word-card"
       size="large"
       plain
-      >Add a word</el-button
+      ref="addButtonRef"
+      >Add an empty word</el-button
     >
 
-    <!-- 底部按钮 -->
+    <el-tour v-model="isTour">
+      <el-tour-step
+        :target="searchRef?.$el"
+        title="You can search a word and add it"
+      />
+      <el-tour-step
+        :target="addButtonRef?.$el"
+        title="Or create an empty word and fill in the information"
+      />
+      <template #indicators="{ current, total }">
+        <span>{{ current + 1 }} / {{ total }}</span>
+      </template>
+    </el-tour>
+
+    <!-- bottom button -->
     <template #footer>
       <el-button @click="handleCancle">Cancle</el-button>
       <el-button type="primary" @click="submitForm" :loading="isLoading"

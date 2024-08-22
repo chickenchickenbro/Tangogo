@@ -36,10 +36,17 @@ const resetInputValue = () => {
   inputValue.value = ''
 }
 
+// automatically focus search input
+const inputRef = ref()
+const focusInput = () => {
+  inputRef.value.focus()
+}
+
 defineExpose({
   handleClickOutside,
   closeSearch,
-  resetInputValue
+  resetInputValue,
+  focusInput
 })
 </script>
 
@@ -48,10 +55,12 @@ defineExpose({
     <el-input
       size="large"
       style="max-width: 600px"
-      placeholder="Search word in dictionary ( Try English or Japanese )"
+      placeholder="Search and Add a word in dictionary"
       v-model="inputValue"
       @click="handleClick"
       @keyup.enter="handleSearch"
+      ref="inputRef"
+      focused
     >
       <template #append>
         <el-button :icon="Search" @click="handleSearch" />
